@@ -1,0 +1,141 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+struct node{
+ int coef,cons,pwr;
+ struct node *link;
+ 
+}*head1=NULL,*head2=NULL,*head3=NULL;
+
+void ins1(int a , int b)
+{
+ struct node *temp,*p1;
+ temp=(struct node *)malloc(sizeof(struct node));
+ temp->coef=b;
+ temp->pwr=a;
+ temp->link=NULL;
+ if(head1==NULL)
+  {
+   head1=temp;
+  }
+ else
+  {
+   p1=head1;
+   while(p1->link!=NULL)
+    {
+     p1=p1->link;
+    }
+    p1->link=temp;
+  }
+}
+
+void ins2(int a , int b)
+{ 
+ struct node *temp,*p1;
+ temp=(struct node *)malloc(sizeof(struct node));
+ temp->coef=b;
+ temp->pwr=a;
+ temp->link=NULL;
+ if(head2==NULL)
+  { 
+   head2=temp;
+  }
+ else
+  { 
+   p1=head2;
+   while(p1->link!=NULL)
+    { 
+     p1=p1->link;
+    }
+    p1->link=temp;
+  }
+}
+
+void ins3(int a , int b)
+{
+ struct node *temp,*p1;
+  temp=(struct node *)malloc(sizeof(struct node));
+   temp->coef=b;
+    temp->pwr=a;
+     temp->link=NULL;
+      if(head3==NULL)
+        {
+         head3=temp;
+        }
+      else
+        {
+         p1=head3;
+         while(p1->link!=NULL)
+         {
+            p1=p1->link;
+         }
+         p1->link=temp;
+       }
+}
+                                         
+
+void display(struct node *a)
+{
+ struct node *n1;
+ n1=a;
+ while(n1!=NULL)
+  {
+  
+   if(n1->link!=NULL)
+   {
+    printf(" %dX%d +",n1->coef,n1->pwr);
+   }
+   else
+   {
+   printf(" %d",n1->coef);
+   }
+   n1=n1->link;
+  }
+  printf("\n");
+}
+
+void main()
+{
+ int deg1,deg2,i,in;
+ struct node *x1,*x2;
+ printf("Enter degree of polynomial:");
+ scanf("%d",&deg1);
+ for(i=deg1;i>=0;i--)
+  {
+   printf("Cofficent of X%d:",i);
+   scanf("%d",&in);
+   ins1(i,in);
+  }
+
+ display(head1);
+ printf("\n[2nd Polynomial]\nEnter the degree of polynomial:");
+ scanf("%d",&deg2);
+  for(i=deg2;i>=0;i--)
+  {
+   printf("Cofficent of X%d:",i);
+   scanf("%d",&in);
+   ins2(i,in);
+  }
+ display(head2);
+ if(deg1>deg2)
+ {
+ x1=head1;
+ x2=head2;
+ }
+ else
+ {
+  x1=head2;
+  x2=head1;
+ }
+ while(x1!=NULL)
+ {
+  if(x1->pwr==x2->pwr)
+   {
+   x1->coef+=x2->coef;
+   x2=x2->link;
+   }
+   x1=x1->link;
+ }
+ printf("Result:");
+ display((deg1>deg2)?head1:head2);
+}
